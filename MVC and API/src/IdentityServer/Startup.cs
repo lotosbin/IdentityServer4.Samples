@@ -28,11 +28,11 @@ namespace Host
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+            //    builder.AddUserSecrets();
+            //}
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -54,10 +54,10 @@ namespace Host
             // builder.AddInMemoryUsers(Users.Get());
             // Add framework services.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-           builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
-                options.Cookies.ApplicationCookie.AuthenticationScheme = "ApplicationCookie";
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
+                options.Cookies.ApplicationCookie.AuthenticationScheme = "Temp";
                 options.Cookies.ApplicationCookie.CookieName = "Interop";
                 // options.Cookies.ApplicationCookie.DataProtectionProvider = DataProtectionProvider.Create(new DirectoryInfo("C:\\Github\\Identity\\artifacts"));
             })

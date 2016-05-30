@@ -8,6 +8,9 @@
 *.sln.docstates
 *.lock.json
 
+# GhostDoc
+*.GhostDoc.xml
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

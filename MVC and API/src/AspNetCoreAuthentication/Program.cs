@@ -12,7 +12,6 @@ namespace AspNetCoreAuthentication
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:3308")
                 .Build();
 
             host.Run();
