@@ -5,24 +5,28 @@ using System;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Host.UI.Login
 {
     public class LoginService
     {
         private readonly List<InMemoryUser> _users;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public LoginService(List<InMemoryUser> users)
+        public LoginService(SignInManager<IdentityUser> signInManager)
         {
-            _users = users;
+            _users = new List<InMemoryUser>();
+            _signInManager = signInManager;
         }
 
         public bool ValidateCredentials(string username, string password)
         {
-            var user = FindByUsername(username);
+            var user =  _signInManager.PasswordSignInAsync(username,password,false,false).Result;
             if (user != null)
             {
-                return user.Password.Equals(password);
+                return true;
             }
             return false;
         }
